@@ -2,11 +2,16 @@ package main
 
 import (
 	"fmt"
-	lab1 "github.com/roman-mazur/design-lab-1"
+	lab1 "github.com/drunyaD/design-lab-1"
+	"os"
+	"strings"
 )
 
 func main() {
-	// TODO: Get input from the command line, handle errors.
-	res, _ := lab1.PrefixToPostfix("+ 2 2")
-	fmt.Println(res)
+	res, err := lab1.PrefixCalculate(strings.Join(os.Args[1:], " "))
+	if err == nil {
+		fmt.Println(res)
+	} else {
+		fmt.Println(err)
+	}
 }
