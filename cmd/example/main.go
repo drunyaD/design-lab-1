@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+var (
+	buildVersion string = ""
+)
+
 func main() {
 	res, err := lab1.PrefixCalculate(strings.Join(os.Args[1:], " "))
 	if err == nil {
