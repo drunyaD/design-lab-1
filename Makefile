@@ -1,4 +1,4 @@
-default: out/example
+default: test out/example
 clean:
 	rm -rf out
 test:
