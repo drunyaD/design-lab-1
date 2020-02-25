@@ -2,21 +2,42 @@ package lab1
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+	."gopkg.in/check.v1"
 )
 
-func TestPrefixToPostfix(t *testing.T) {
-	res, err := PrefixToPostfix("+ 5 * - 4 2 3")
-	if assert.Nil(t, err) {
-		assert.Equal(t, "4 2 - 3 * 5 +", res)
-	}
-}
+func TestPrefixCalculate(t *testing.T) { TestingT(t) }
+	
+	type MySuite struct{}
+    
+    var _ = Suite(&MySuite{})
 
-func ExamplePrefixToPostfix() {
-	res, _ := PrefixToPostfix("+ 2 2")
-	fmt.Println(res)
+    func (s *MySuite) TestComplexExpression(c *C) {
+    res, _ := PrefixCalculate("- * / 15 - 7 + 1 1 3 + 2 + 1 1")
+    c.Assert(res, Equals, "5")
+    fmt.Println(res)
+   }
+   
+   func (s *MySuite) TestEmptyString(c *C) {
+    _ , err := PrefixCalculate("")
+    fmt.Println(err)
+   }
 
-	// Output:
-	// 2 2 +
-}
+   func (s *MySuite) TestImproperSymbols(c *C) {
+    _ , err := PrefixCalculate("☆☆☆☆☆☆")
+    fmt.Println(err)
+   }
+	
+	func (s *MySuite) TestSimpleExpression(c *C) {
+    res, _ := PrefixCalculate("+ 5 * - 4 2 3")
+    c.Assert(res, Equals, "11")
+    fmt.Println(res)
+   }
+
+   
+    
+    
+
+    
+   
+   
