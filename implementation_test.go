@@ -12,27 +12,34 @@ func TestPrefixCalculate(t *testing.T) { TestingT(t) }
     
     var _ = Suite(&MySuite{})
 
-    func (s *MySuite) TestComplexExpression(c *C) {
-    res, _ := PrefixCalculate("- * / 15 - 7 + 1 1 3 + 2 + 1 1")
-    c.Assert(res, Equals, "5")
-    fmt.Println(res)
+    func (s *MySuite) TestExpressionCalculation(c *C) {
+    expressions := []string{"+ 5 * - 4 2 3", "- * / 15 - 7 + 1 1 3 + 2 + 1 1"}
+    expectations := []string{"11", "5"}
+    for i := 0; i<len(expressions); i++ {
+    res, _ := PrefixCalculate(expressions[i])
+    c.Assert(res, Equals, expectations[i]) 
+    //ftm.Println(res)
+    }
    }
    
-   func (s *MySuite) TestEmptyString(c *C) {
-    _ , err := PrefixCalculate("")
-    fmt.Println(err)
+   func (s *MySuite) TestExceptions(c *C) {
+   	expressions := []string{"", "☆☆☆☆☆☆", "7 + 8 + 9"}
+   	for i := 0; i<len(expressions); i++ {
+    _ , err := PrefixCalculate(expressions[i])
+    c.Assert(err, NotNil)
+    //fmt.Println(err)
+    }
    }
 
-   func (s *MySuite) TestImproperSymbols(c *C) {
-    _ , err := PrefixCalculate("☆☆☆☆☆☆")
-    fmt.Println(err)
+   func ExamplePrefixEvaluation() {
+	res, err := PrefixCalculate("+ 5 * - 4 2 3") 
+	if err==nil {
+	fmt.Println(res)
    }
-	
-	func (s *MySuite) TestSimpleExpression(c *C) {
-    res, _ := PrefixCalculate("+ 5 * - 4 2 3")
-    c.Assert(res, Equals, "11")
-    fmt.Println(res)
-   }
+
+	// Output:
+	// 11
+}
 
    
     
